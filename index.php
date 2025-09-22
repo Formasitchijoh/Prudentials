@@ -1,19 +1,5 @@
 <?php
-// $host = 'localhost';
-// $user = 'root';
-// $password = 'password'; // Replace with your MariaDB root password
-// $database = 'todo';
 include('config.php');
-
-// // Create connection
-// $conn = mysqli_connect($host, $user, $password, $database);
-
-// // Check connection
-// if (!$conn) {
-//     die("Connection failed: " . mysqli_connect_error());
-// }
-// echo "Connected to MariaDB successfully";
-
 try {
     // $conn = new PDO("mysql:host=$DB_HOST;dbname=DB_NAME", DB_USER, DB_PASS);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -69,17 +55,6 @@ try {
             </li>
         <?php endwhile ?>
        </ul>
-        <!-- <ul>
-            <?php
-            if ($result) {
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<strong><li>" . $row['task'] . "</li></strong>";
-                }
-            } else {
-                echo "<li>No tasks found or query failed.</li>";
-            }
-            ?>
-        </ul> -->
     </div>
 </body>
 </html>
