@@ -5,8 +5,8 @@ namespace App\Domains\Projects\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class TaskComment extends Model
 {
-    /** @use HasFactory<\Database\Factories\TaskFactory> */
+    /** @use HasFactory<\Database\Factories\TaskCommentFactory> */
     use HasFactory;
 }

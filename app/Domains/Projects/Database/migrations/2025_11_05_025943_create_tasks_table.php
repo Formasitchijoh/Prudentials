@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('type')->default('task');
             $table->unsignedBigInteger('assignee_id')->nullable();
             $table->unsignedBigInteger('reporter_id')->nullable();
-            $table->enum('status', ['todo', 'in_progress', 'blocked', 'review'. 'done'])->default('task');
+            $table->enum('status', ['todo', 'in_progress', 'blocked', 'review', 'done'])->default('done');
             $table->string('priority');
-            $table->decimal('estimated_hourse')->nullable();
+            $table->decimal('estimated_hours')->nullable();
             $table->decimal('actual_hours')->nullable();
             $table->timestamps();
         });
