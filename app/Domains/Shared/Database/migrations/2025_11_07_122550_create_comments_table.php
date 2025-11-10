@@ -3,34 +3,33 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Domains\Projects\Models\Project;
+use App\Domains\Projects\Models\Task;
 use App\Models\User;
 
 return new class extends Migration
 {
     /**
      * Run the migrations.
-     * This is the custom pivot table between Users and Project
-    */
-
+     */
     public function up(): void
     {
-        Schema::create('project_members', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tenant_id');
+            $table->text('body');
+            $table->integer('commentable_id');
+            $table->string('commentable_type');
             $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Project::class);
-            $table->string('role');
+            $table->json('attchments')->nullable();
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-    */
-    
+     */
     public function down(): void
     {
-        Schema::dropIfExists('project_members');
+        Schema::dropIfExists('comments');
     }
 };

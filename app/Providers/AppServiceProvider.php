@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Model::unguard();
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             // Match: App\Domains\{Domain}\Models\{Model}
             // This is a custom Factory Resolver for resolving domain based data 
@@ -32,6 +34,5 @@ class AppServiceProvider extends ServiceProvider
             // Fallback to Laravel's default (for App\Models\*, etc.)
             return Factory::resolveFactoryName($modelName);
         });
-    
     }
 }

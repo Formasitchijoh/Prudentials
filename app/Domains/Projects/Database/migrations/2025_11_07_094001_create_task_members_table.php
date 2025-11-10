@@ -3,22 +3,22 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 use App\Domains\Projects\Models\Task;
 
 return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Custom pivot table between task and Users
      */
     public function up(): void
     {
-        Schema::create('task_comments', function (Blueprint $table) {
+        Schema::create('task_members', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tenant_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignIdFor(User::class);
             $table->foreignIdFor(Task::class);
-            $table->string('body');
-            $table->json('attchments')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('task_comments');
+        Schema::dropIfExists('task_members');
     }
 };

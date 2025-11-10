@@ -4,21 +4,28 @@ namespace App\Domains\Projects\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Domains\Projects\Models\Project;
+use App\Domains\Projects\Services\ProjectService;
+
+use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
-    public function __contructor()
-    {
+    protected $projectService;
 
+    public function __construct(ProjectService $projectService)
+    {
+        $this->projectService = $projectService;
     }
 
     public function index()
     {
-        $projects = Project::latest()->get();
-        
-        return view('projects.index', [
-            'projects' => $projects
-        ]);
+        $projects = $this->projectService->getAllProjects();
+        return response()->json($projects);
+    }
+
+    public function store(Request $request)
+    {
+        Log::info($request);
+        return $this->projectService->create($request->all());
     }
 }

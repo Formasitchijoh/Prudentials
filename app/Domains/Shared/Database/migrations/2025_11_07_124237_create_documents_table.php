@@ -3,34 +3,31 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Domains\Projects\Models\Project;
-use App\Models\User;
 
 return new class extends Migration
 {
     /**
      * Run the migrations.
-     * This is the custom pivot table between Users and Project
-    */
-
+     * A project can have one or more document and can a document belong to one or more project (YES for ONBOARDING new employees)
+     */
     public function up(): void
     {
-        Schema::create('project_members', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tenant_id');
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Project::class);
-            $table->string('role');
+            $table->string('name');
+            $table->string('type');
+            $table->string('storage_path');
+            $table->string('uploaded_by');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-    */
-    
+     */
     public function down(): void
     {
-        Schema::dropIfExists('project_members');
+        Schema::dropIfExists('documents');
     }
 };
