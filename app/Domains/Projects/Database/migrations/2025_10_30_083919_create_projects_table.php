@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->unsignedBigInteger('tenant_id')->index();
+            $table->id();
+            $table->foreignId('tenant_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
             $table->string('slug');
             $table->text('description');
@@ -32,7 +32,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     */
+    */
+
     public function down(): void
     {
         Schema::dropIfExists('projects');

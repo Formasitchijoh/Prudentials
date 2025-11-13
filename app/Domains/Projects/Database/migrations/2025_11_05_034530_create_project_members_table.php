@@ -17,9 +17,9 @@ return new class extends Migration
     {
         Schema::create('project_members', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tenant_id');
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Project::class);
+            $table->foreignId('tenant_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('project_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('role');
             $table->timestamps();
         });

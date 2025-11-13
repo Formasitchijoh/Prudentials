@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany; // Many to Many morph
 use Illuminate\Database\Eloquent\Model;
 use App\Domains\Projects\Models\Project;
 use App\Domains\Shared\Models\Tag;
+use App\Domains\Projects\Models\ProjectMember;
 
 use App\Domains\Shared\Models\Comment;
 use App\Models\User;
@@ -34,7 +35,10 @@ class Task extends Model
 
     public function members()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class)
+                    ->using(ProjectMember::class)
+                    ->withPivot('role')
+                    ->withTimestamps();
     }
 
     /**

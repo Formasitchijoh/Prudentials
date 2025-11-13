@@ -2,6 +2,8 @@
 
 namespace App\Domains\Projects\Models;
 
+use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use App\Domains\Projects\Models\Project;
@@ -13,7 +15,7 @@ use App\Models\User;
  * These models cannot use the softdelete trait if you need it consider converting $this->
  * into an actual Eloquent model;
  */
-class ProjectMember extends Pivot
+class ProjectMember extends Model
 {
     /** @use HasFactory<\Database\Factories\ProjectMemberFactory> */
     use HasFactory;
@@ -24,7 +26,7 @@ class ProjectMember extends Pivot
      * @var bool
      */
     
-    public $incrementing = true;
+    // public $incrementing = true;
 
     public function projects()
     {

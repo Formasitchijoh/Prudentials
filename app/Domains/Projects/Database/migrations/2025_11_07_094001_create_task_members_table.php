@@ -16,9 +16,9 @@ return new class extends Migration
     {
         Schema::create('task_members', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tenant_id');
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Task::class);
+            $table->foreignId('tenant_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('task_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

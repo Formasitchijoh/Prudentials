@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+
 
 /**
  * Protecting routes, attach the sanctum authentication guard to your protected routes in the web.php and api.php route filesize
@@ -18,6 +20,12 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+
+    public function index()
+    {
+        //
+    }
+
     public function register(Request $request)
     {
         $request->validate([
@@ -25,11 +33,14 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed'
         ]);
-        User::create([
+        Log::info('This is an informational message.');
+        
+        $user =  User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
+        Log::info($user);
         // We are using an APi service so we use the response
         return response()->json(['message' => 'User registered successfully']);
     }
@@ -43,7 +54,7 @@ class AuthController extends Controller
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
-        
+
         $user = Auth::user();
         $token = $user->createToken('authToken')->plainTextToken;
         return response()->json(['token' => $token]);

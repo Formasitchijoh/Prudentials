@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tenant_id');
-            $table->foreignIdFor(Project::class);
+            $table->foreignId('tenant_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('project_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->unsignedBigInteger('milestone_id')->nullable();
             $table->string('title');
             $table->string('description');
