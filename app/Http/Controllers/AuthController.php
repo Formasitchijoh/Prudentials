@@ -45,6 +45,13 @@ class AuthController extends Controller
         return response()->json(['message' => 'User registered successfully']);
     }
 
+    public function user() 
+    {
+        $authUser = Auth::user();
+
+        return response()->json($authUser);
+    }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -57,7 +64,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
         $token = $user->createToken('authToken')->plainTextToken;
-        return response()->json(['token' => $token]);
+        return response()->json(['token' => $token, 'user' => $user]);
     }
 
     public function userInfo(Request $request)
