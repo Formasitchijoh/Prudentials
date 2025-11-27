@@ -25,9 +25,4 @@ class ProjectMemberController extends Controller
     {
         return $this->projectMemberService->addProjectMember($request);
     }
-
-    public function addExistingMember(Request $request)
-    {
-        return $this->projectMemberService->addExistingMember($request);
-    }
 }

@@ -6,8 +6,10 @@ use App\Domains\Projects\Controllers\ProjectController;
 use App\Domains\Projects\Controllers\TaskController;
 use App\Http\Controllers\TenantController;
 use App\Domains\Projects\Controllers\ProjectMemberController;
+use App\Domains\Projects\Controllers\TaskMemberController;
 
 use App\Http\Controllers\AuthController;
+use App\Models\User;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -25,9 +27,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tenant', [TenantController::class, 'index']);
     Route::post('/tenant', [TenantController::class, 'store']);
 
+    // Route::get('/roles', function (Request $request) {
+    //     $user = User::find(1);
+    //     return response()->json($user->roles);
+    // });
+
     Route::prefix('project')->group(function () {
         Route::get('/members', [ProjectMemberController::class, 'index']);
         Route::post('/member', [ProjectMemberController::class, 'store']);
-
     });
+
+    Route::prefix('task')->group(function () {
+        Route::get('/members', [TaskMemberController::class, 'index']);
+        Route::post('/member',[TaskMemberController::class, 'store']);
+    });
+
+
 });

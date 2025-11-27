@@ -15,7 +15,7 @@ class TaskService
     {
         $this->taskRepository = $taskRepository;
         // These repository are not passed they are type hinted into the 
-        // Service to inject the repository dependenyc into the service 
+        // Service to inject the repository dependenycy into the service 
     }
 
     public function create(array $tasks)

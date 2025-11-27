@@ -23,7 +23,7 @@ class ProjectMemberFactory extends Factory
             'tenant_id'         => fake()->numberBetween(1, 100),
             'project_id'        => Project::inRandomOrder()->first()?->id ?? 1,
             'user_id'           => fake()->numberBetween(1, 100),
-            'role'              => fake()->randomElement(['owner', 'pm', 'contributor', 'viewer']),
+            'role_id'           => fake()->randomElement([1,2,3]),
         ];
     }
 }

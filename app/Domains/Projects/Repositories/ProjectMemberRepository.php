@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Domains\Projects\Models\ProjectMember;
 use Illuminate\Http\Request; // Add this
 use App\Domains\Projects\Models\Project;
+use App\Models\Role;
 use Illuminate\Support\Facades\Log;
 
 class ProjectMemberRepository
@@ -29,13 +30,17 @@ class ProjectMemberRepository
     {
 
         $validatedMember = $request->validate([
-            'tenant_id' => 'required',
-            'project_id' => 'required',
-            'role' => 'required',
+            'tenant_id' => 'required|exists:tenants,id',
+            'project_id' => 'required|exists:projects,id',
+            'role_id' => 'required|exists:roles,id',
+            // Also validate the project role name field if it is in the request
+            // 'project_role' => 'required|string', 
         ]);
-        $isnewUser = $request->has('email') && $request->has('name');
-
         $project = Project::findOrFail($validatedMember['project_id']);
+        $role = Role::findOrFail($validatedMember['role_id']);
+        Log::info($role);
+        $isnewUser = $request->has('email') && $request->has('name');
+        
 
         if ($isnewUser) {
             $validatedUser = $request->validate([
@@ -50,23 +55,37 @@ class ProjectMemberRepository
                 'password' => Hash::make($validatedUser['password'])
             ]);
 
+            $user->roles()->attach($validatedMember['role_id']);
+
             $pivot = ProjectMember::create([
                 'tenant_id' => $validatedMember['tenant_id'],
                 'project_id' => $project->id,
                 'user_id' => $user->id,
-                'role' => $validatedMember['role'],
+                'role_id' => $role->id,
             ]);
 
             return $pivot;
-
         } else if ($request->has('user_id')) {
 
             $user = User::findOrFail($request['user_id']); // get the user id passed and return it
+
+            if (ProjectMember::where('user_id', $user->id)->where('project_id', $project->id)->exists()) {
+                abort(409, 'User is already a member of this project');
+            }
+
+            $hasRole = $user->roles()->where('role_id', $validatedMember['role_id'])->exists();
+
+            if ($hasRole) {
+                abort(409, 'User already has this role');
+            }
+
+            $user->roles()->attach($validatedMember['role_id']);
+
             $pivot = ProjectMember::create([
                 'tenant_id' => $validatedMember['tenant_id'],
                 'project_id' => $project->id,
                 'user_id' => $user->id,
-                'role' => $validatedMember['role'],
+                'role_id' => $role->id,
             ]);
 
             return $pivot;

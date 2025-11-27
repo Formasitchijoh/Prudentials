@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('tenant_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('project_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('role');
+            $table->foreignId('role_id')->unique()->constrained();
             $table->timestamps();
         });
     }

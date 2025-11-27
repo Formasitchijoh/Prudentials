@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('type')->default('task');
-            $table->unsignedBigInteger('assignee_id')->nullable();
-            $table->unsignedBigInteger('reporter_id')->nullable();
+            $table->foreignId('assignee_id')->nullable();
+            $table->foreignId('reporter_id')->nullable();
             $table->enum('status', ['todo', 'in_progress', 'blocked', 'review', 'done'])->default('done');
             $table->string('priority');
             $table->decimal('estimated_hours')->nullable();

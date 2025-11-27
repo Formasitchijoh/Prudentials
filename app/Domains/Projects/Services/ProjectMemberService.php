@@ -26,8 +26,4 @@ class ProjectMemberService
         return $this->projectMemberRepository->getAllMembers();
     }
 
-    public function addExistingMember(Request $request)
-    {
-        return $this->projectMemberRepository->addExistingMember($request);
-    }
 }
