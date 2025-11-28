@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('body');
             $table->integer('commentable_id');
             $table->string('commentable_type');
-            $table->foreignIdFor(User::class);
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->json('attchments')->nullable();
             $table->timestamps();
         });

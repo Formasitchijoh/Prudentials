@@ -37,26 +37,30 @@ class ProjectMemberRepository
             // 'project_role' => 'required|string', 
         ]);
         $project = Project::findOrFail($validatedMember['project_id']);
+
         $role = Role::findOrFail($validatedMember['role_id']);
-        Log::info($role);
         $isnewUser = $request->has('email') && $request->has('name');
-        
+
+        Log::info(Project::findOrFail($validatedMember['project_id']));
 
         if ($isnewUser) {
             $validatedUser = $request->validate([
-                'name' => 'required|min:3',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|min:6|confirmed'
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required'
             ]);
-
+            Log::info($validatedUser);
+        
             $user = User::create([
                 'name' => $validatedUser['name'],
                 'email' => $validatedUser['email'],
                 'password' => Hash::make($validatedUser['password'])
             ]);
-
+            
             $user->roles()->attach($validatedMember['role_id']);
 
+            //After creating the user then we need the employee for that user_error
+            
             $pivot = ProjectMember::create([
                 'tenant_id' => $validatedMember['tenant_id'],
                 'project_id' => $project->id,
@@ -66,7 +70,7 @@ class ProjectMemberRepository
 
             return $pivot;
         } else if ($request->has('user_id')) {
-
+            Log::info('In Else if statement \n');
             $user = User::findOrFail($request['user_id']); // get the user id passed and return it
 
             if (ProjectMember::where('user_id', $user->id)->where('project_id', $project->id)->exists()) {

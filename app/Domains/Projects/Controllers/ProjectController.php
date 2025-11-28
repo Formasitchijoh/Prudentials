@@ -25,7 +25,6 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
-        Log::info($request);
         return $this->projectService->create($request->all());
     }
 }

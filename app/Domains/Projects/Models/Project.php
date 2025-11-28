@@ -40,7 +40,7 @@ class Project extends Model
 
     public function members()
     {
-        return $this->belongsToMany(User::class, 'project_members', 'project_id', 'user_id')
+        return $this->belongsToMany(User::class, 'project_members', 'project_id', 'user_id') // We need to pass the project_members name because we changed the name of the pivot table and violates laravel naming convention
             ->using(ProjectMember::class)
             ->withPivot(['tenant_id', 'role'])
             ->withTimestamps();
@@ -54,9 +54,11 @@ class Project extends Model
     /**
      * morphOne are used to retrieve of the rows of the relation between the two tables 
      */
+
+    // Why could you want to comment on a project should be commenting on a task rather
     public function comments(): MorphMany
     {
-        return $this->morphMany(Comment::class, 'commentable')->chaperone();
+        return $this->morphMany(Comment::class, 'commentable')->chaperone(); // Chaperoning the comments means the projects should be loaded for each comments ot prevent N+1 query issues 
     }
 
     public function tasks()

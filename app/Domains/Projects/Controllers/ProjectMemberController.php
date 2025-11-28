@@ -23,6 +23,7 @@ class ProjectMemberController extends Controller
 
     public function store(Request $request)
     {
-        return $this->projectMemberService->addProjectMember($request);
+        $project =  $this->projectMemberService->addProjectMember($request);
+        return response()->json($project);
     }
 }

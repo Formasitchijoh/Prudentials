@@ -7,7 +7,7 @@ use App\Domains\Projects\Controllers\TaskController;
 use App\Http\Controllers\TenantController;
 use App\Domains\Projects\Controllers\ProjectMemberController;
 use App\Domains\Projects\Controllers\TaskMemberController;
-
+use App\Domains\Shared\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
 use App\Models\User;
 
@@ -27,10 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tenant', [TenantController::class, 'index']);
     Route::post('/tenant', [TenantController::class, 'store']);
 
-    // Route::get('/roles', function (Request $request) {
-    //     $user = User::find(1);
-    //     return response()->json($user->roles);
-    // });
+    Route::get('/comments',[CommentController::class, 'index']);
+    Route::post('/comment',[CommentController::class, 'store']);
 
     Route::prefix('project')->group(function () {
         Route::get('/members', [ProjectMemberController::class, 'index']);

@@ -12,6 +12,7 @@ use App\Domains\Projects\Models\Project;
 use App\Domains\Shared\Models\Employee;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -60,7 +61,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function employee()
+    public function employee():HasOne
     {
         return $this->hasOne(Employee::class);
     }
