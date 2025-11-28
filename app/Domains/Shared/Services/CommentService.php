@@ -22,4 +22,9 @@ class CommentService
     {
         return $this->commentRepository->getAllComments();
     }
+
+    public function commentsFiles()
+    {
+        return $this->commentRepository->commentsFiles();
+    }
 }

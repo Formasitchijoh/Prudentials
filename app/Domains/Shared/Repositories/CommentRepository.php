@@ -16,7 +16,7 @@ class CommentRepository
             'body' => 'required',
             'commentable_id' => 'required',
             'commentable_type' => 'required',
-            'user_id' => 'required'
+        'user_id' => 'required'
         ]);
 
         Log::info($request);
@@ -28,5 +28,10 @@ class CommentRepository
         $comment = Comment::findOrFail(1);
 
         return $comment->commentable;
+    }
+    public function commentsFiles()
+    {
+        $comment = Comment::findOrFail(1);
+        return $comment->documents;
     }
 }

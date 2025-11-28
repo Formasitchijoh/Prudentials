@@ -26,4 +26,10 @@ class CommentController extends Controller
         $this->commentService->create($request);
         return response()->json(['message' => "Comment added successfully"]);
     }
+
+    public function commentFiles()
+    {
+        $documents = $this->commentService->commentsFiles();
+        return response()->json($documents);
+    }
 }

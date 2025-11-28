@@ -59,8 +59,12 @@ class ProjectMemberRepository
             
             $user->roles()->attach($validatedMember['role_id']);
 
-            //After creating the user then we need the employee for that user_error
-            
+            //After creating the user thenPu we need the employee for that user_error
+            // $user->employee()->create([
+            //     'name' => $validatedUser['name'],
+            //     'logo' => 'default', // Make this field nullable in the migration
+            // ]);
+
             $pivot = ProjectMember::create([
                 'tenant_id' => $validatedMember['tenant_id'],
                 'project_id' => $project->id,

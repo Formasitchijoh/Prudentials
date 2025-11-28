@@ -4,8 +4,9 @@ namespace App\Domains\Shared\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-
+use App\Domains\Shared\Models\Document;
 /**
  * 
  * This model has a polymorphic relation as it can belong to many other models like task, etc 
@@ -31,6 +32,11 @@ class Comment extends Model
     public function commentable():MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function documents():MorphMany
+    {
+        return $this->morphMany(Document::class, 'documentable')->chaperone();
     }
 
 

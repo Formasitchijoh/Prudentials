@@ -9,8 +9,7 @@ use App\Domains\Projects\Controllers\ProjectMemberController;
 use App\Domains\Projects\Controllers\TaskMemberController;
 use App\Domains\Shared\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
-use App\Models\User;
-
+use App\Domains\Shared\Controllers\DocumentController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -29,6 +28,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/comments',[CommentController::class, 'index']);
     Route::post('/comment',[CommentController::class, 'store']);
+    Route::get('/comments/files',[CommentController::class, 'commentFiles']);
+
+    Route::get('/documents',[DocumentController::class, 'index']);
+    Route::post('/documents/upload',[DocumentController::class, 'store']);
 
     Route::prefix('project')->group(function () {
         Route::get('/members', [ProjectMemberController::class, 'index']);

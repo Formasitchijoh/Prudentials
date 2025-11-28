@@ -12,6 +12,7 @@ use App\Domains\Shared\Models\Tag;
 use App\Domains\Projects\Models\ProjectMember;
 
 use App\Domains\Shared\Models\Comment;
+use App\Domains\Shared\Models\Document;
 use App\Models\User;
 
 class Task extends Model
@@ -31,6 +32,11 @@ class Task extends Model
     public function comments():MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable')->chaperone();
+    }
+
+    public function documents():MorphMany
+    {
+        return $this->morphMany(Document::class, 'documentable')->chaperone();
     }
 
     public function members()

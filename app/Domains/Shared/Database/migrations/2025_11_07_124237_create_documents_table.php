@@ -16,9 +16,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('tenant_id');
             $table->string('name');
-            $table->string('type');
             $table->string('storage_path');
-            $table->string('uploaded_by');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->morphs('documentable');
             $table->timestamps();
         });
     }
