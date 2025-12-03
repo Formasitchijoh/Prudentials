@@ -10,13 +10,14 @@ use App\Domains\Projects\Controllers\TaskMemberController;
 use App\Domains\Shared\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
 use App\Domains\Shared\Controllers\DocumentController;
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/user', fn(Request $request) => $request->user());
-    Route::get('/auth_user',[ AuthController::class, 'user']);
+    Route::get('/auth_user', [AuthController::class, 'user']);
     Route::get('/projects', [ProjectController::class, 'index']);
     Route::post('/projects', [ProjectController::class, 'store']); // ← MOVE HERE
 
@@ -26,12 +27,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tenant', [TenantController::class, 'index']);
     Route::post('/tenant', [TenantController::class, 'store']);
 
-    Route::get('/comments',[CommentController::class, 'index']);
-    Route::post('/comment',[CommentController::class, 'store']);
-    Route::get('/comments/files',[CommentController::class, 'commentFiles']);
+    Route::get('/comments', [CommentController::class, 'index']);
+    Route::post('/comments', [CommentController::class, 'store']);
+    Route::get('/comments/files', [CommentController::class, 'commentFiles']);
 
-    Route::get('/documents',[DocumentController::class, 'index']);
-    Route::post('/documents/upload',[DocumentController::class, 'store']);
+    Route::get('/documents', [DocumentController::class, 'index']);
+    Route::post('/documents/upload', [DocumentController::class, 'store']);
 
     Route::prefix('project')->group(function () {
         Route::get('/members', [ProjectMemberController::class, 'index']);
@@ -40,8 +41,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('task')->group(function () {
         Route::get('/members', [TaskMemberController::class, 'index']);
-        Route::post('/member',[TaskMemberController::class, 'store']);
+        Route::post('/member', [TaskMemberController::class, 'store']);
     });
-
-
 });

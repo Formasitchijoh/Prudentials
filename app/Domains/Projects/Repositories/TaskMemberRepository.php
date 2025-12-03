@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Domains\Projects\Repositories;
+
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Domains\Projects\Models\TaskMember;
@@ -31,11 +32,24 @@ class TaskMemberRepository
             'tenant_id' => 'required|exists:tenants,id',
             'user_id' => 'required|exists:users,id',
             'task_id' => 'required|exists:tasks,id',
-            'user_id' => Rule::unique('task_members')->where(function ($query) use ($request){
+            'user_id' => Rule::unique('task_members')->where(function ($query) use ($request) {
                 return $query->where('task_id', $request->task_id);
             }),
         ]);
 
-            TaskMember::create($validatedMember);
+        TaskMember::create($validatedMember);
+    }
+    public static function addTaskMember(array $taskMember)
+    {
+        // $validatedMember = $request->validate([
+        //     'tenant_id' => 'required|exists:tenants,id',
+        //     'user_id' => 'required|exists:users,id',
+        //     'task_id' => 'required|exists:tasks,id',
+        //     'user_id' => Rule::unique('task_members')->where(function ($query) use ($request){
+        //         return $query->where('task_id', $request->task_id);
+        //     }),
+        // ]);
+
+        TaskMember::create($taskMember);
     }
 }

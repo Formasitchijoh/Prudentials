@@ -6,6 +6,7 @@ namespace App\Domains\Projects\Services;
 use App\Domains\Projects\Repositories\TaskRepository;
 
 use App\Domains\Projects\Models\Task;
+use Illuminate\Http\Request;
 
 class TaskService
 {
@@ -18,9 +19,9 @@ class TaskService
         // Service to inject the repository dependenycy into the service 
     }
 
-    public function create(array $tasks)
+    public function create(Request $request)
     {
-        return $this->taskRepository->create($tasks);
+        return $this->taskRepository->create($request);
     }
 
     public function getAllTasks()

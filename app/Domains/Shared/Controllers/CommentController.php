@@ -4,6 +4,7 @@ namespace App\Domains\Shared\Controllers;
 use App\Http\Controllers\Controller;
 use App\Domains\Shared\Services\CommentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CommentController extends Controller
 {
@@ -18,6 +19,7 @@ class CommentController extends Controller
     public function index()
     {
         $comments = $this->commentService->getAllComments();
+        // Log::info($comments);
         return response()->json($comments,200);
     }
 

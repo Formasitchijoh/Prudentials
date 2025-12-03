@@ -2,6 +2,7 @@
 
 namespace App\Domains\Shared\Repositories;
 
+use App\Domains\Projects\Models\Task;
 use App\Domains\Shared\Models\Comment;
 use Illuminate\Http\Request; // Add this
 use Illuminate\Support\Facades\Log;
@@ -16,7 +17,7 @@ class CommentRepository
             'body' => 'required',
             'commentable_id' => 'required',
             'commentable_type' => 'required',
-        'user_id' => 'required'
+            'user_id' => 'required'
         ]);
 
         Log::info($request);
@@ -25,9 +26,9 @@ class CommentRepository
 
     public function getAllComments()
     {
-        $comment = Comment::findOrFail(1);
+        $tasks = Task::findOrFail(14);
 
-        return $comment->commentable;
+        return $tasks->comments;
     }
     public function commentsFiles()
     {

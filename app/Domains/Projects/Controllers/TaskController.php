@@ -26,6 +26,6 @@ class TaskController extends Controller
     
     public function store(Request $request)
     {
-        return $this->taskService->create($request->all());
+        return $this->taskService->create($request);
     }
 }

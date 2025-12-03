@@ -31,12 +31,12 @@ class Task extends Model
 
     public function comments():MorphMany
     {
-        return $this->morphMany(Comment::class, 'commentable')->chaperone();
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function documents():MorphMany
     {
-        return $this->morphMany(Document::class, 'documentable')->chaperone();
+        return $this->morphMany(Document::class, 'documentable');
     }
 
     public function members()
