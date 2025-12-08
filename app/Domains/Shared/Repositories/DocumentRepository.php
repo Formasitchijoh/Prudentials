@@ -36,7 +36,7 @@ class DocumentRepository
 
         $documentPath = $request->file('document_file')->store('documents', 'public');
 
-        return Document::create([
+        $document = Document::create([
             'name' => $validatedData['name'],
             'storage_path' => $documentPath,
             'tenant_id' => $validatedData['tenant_id'],
@@ -44,6 +44,7 @@ class DocumentRepository
             'documentable_type' => $validatedData['documentable_type'],
             'user_id' => $validatedData['user_id'],
         ]);
-    }
 
+        return $document;
+    }
 }

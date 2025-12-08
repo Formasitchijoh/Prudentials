@@ -14,7 +14,6 @@ class TaskController extends Controller
     public function __construct(TaskService $taskService)
     {
         $this->taskService = $taskService;
-        
     }
 
     public function index()
@@ -23,7 +22,18 @@ class TaskController extends Controller
         return response()->json($tasks);
     }
 
-    
+    public function show($id)
+    {
+        $task = $this->taskService->findTask($id);
+        if (!$task) {
+
+            return response()->json(['message' => 'No Task Found'], 404);
+        }
+
+        return response()->json($task);
+    }
+
+
     public function store(Request $request)
     {
         return $this->taskService->create($request);

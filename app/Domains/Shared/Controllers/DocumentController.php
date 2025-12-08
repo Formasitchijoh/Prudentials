@@ -24,7 +24,7 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
-        $this->documentService->create($request);
-        return response()->json(['message' => "Document stored successfully"]);
+       $document = $this->documentService->create($request);
+        return response()->json(['message' => "Document stored successfully", 'document' => $document]);
     }
 }

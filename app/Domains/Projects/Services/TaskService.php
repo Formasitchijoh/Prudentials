@@ -28,4 +28,9 @@ class TaskService
     {
         return $this->taskRepository->getAll();
     }
+
+    public function findTask($taskId)
+    {
+        return $this->taskRepository->findById($taskId);
+    }
 }

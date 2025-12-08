@@ -26,9 +26,8 @@ class TaskRepository
             'actual_hours' => 'required'
 
         ]);
-        Task::create($validatedTask);
-        $task= Task::latest()->get();
-        if($validatedTask['assignee_id']){
+        $task =  Task::create($validatedTask);
+        if ($validatedTask['assignee_id']) {
             RepositoriesTaskMemberRepository::addTaskMember([
                 'tenant_id' => $validatedTask['tenant_id'],
                 'user_id' => $validatedTask['assignee_id'],
@@ -41,5 +40,11 @@ class TaskRepository
     public function getAll()
     {
         return Task::latest()->get();
+    }
+
+    public function findById($taskId)
+    {
+        $task = Task::with(['comments', 'documents'])->find($taskId);
+        return $task;
     }
 }

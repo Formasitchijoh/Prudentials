@@ -26,7 +26,7 @@ class CommentRepository
 
     public function getAllComments()
     {
-        $tasks = Task::findOrFail(14);
+        $tasks = Task::findOrFail(28);
 
         return $tasks->comments;
     }
