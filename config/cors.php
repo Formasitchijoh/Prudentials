@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://192.168.60.173:3000'], // ← your Nuxt URL
+    'allowed_origins' => ['http://192.168.60.173:3000','http://localhost:3000'], // ← your Nuxt URL
     
     'allowed_origins_patterns' => [],
 

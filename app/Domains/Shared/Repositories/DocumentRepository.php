@@ -23,7 +23,7 @@ class DocumentRepository
             'user_id' => 'required|exists:users,id',
             'document_file' => [
                 'required',
-                File::types(['pdf', 'doc', 'docx', 'csv'])->max(2048)
+                File::types(['pdf', 'doc', 'docx', 'csv'])
             ],
             'tenant_id' => 'required|exists:tenants,id',
             'documentable_id' => 'required|numeric',

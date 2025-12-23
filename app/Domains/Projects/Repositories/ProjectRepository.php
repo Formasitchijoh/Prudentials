@@ -18,6 +18,15 @@ class ProjectRepository
     {
         return Project::latest()->get();
     }
+    public function update(array $project, int $id)
+    {
+        return Project::where('id', $id)->update($project);
+    }
+
+    public function delete(int $id) 
+    {
+        return Project::where('id', $id)->delete();
+    }
 
     /**
      * Find a Project by it's ID 

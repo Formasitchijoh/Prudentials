@@ -19,7 +19,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn(Request $request) => $request->user());
     Route::get('/auth_user', [AuthController::class, 'user']);
     Route::get('/projects', [ProjectController::class, 'index']);
-    Route::post('/projects', [ProjectController::class, 'store']); // ← MOVE HERE
+    Route::post('/projects', [ProjectController::class, 'store']);
+    Route::put('/projects/{id}', [ProjectController::class, 'update']);
+    Route::delete('/projects/{id}', [ProjectController::class, 'delete']);
 
     Route::get('/tasks', [TaskController::class, 'index']);
     Route::get('/tasks/{id}', [TaskController::class, 'show']);

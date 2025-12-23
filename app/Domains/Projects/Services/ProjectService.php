@@ -23,6 +23,16 @@ class ProjectService
         return $this->projectRepository->create($project);
     }
 
+    public function update(array $project, int $id)
+    {
+        return $this->projectRepository->update($project, $id);
+    }
+
+    public function delete(int $id) 
+    {
+        return $this->projectRepository->delete($id);
+    }
+
     public function getAllProjects()
     {
         return $this->projectRepository->getAll();
